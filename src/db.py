@@ -17,7 +17,12 @@ from __future__ import annotations
 import sqlite3
 from typing import Any, Dict, Iterable, List, Tuple
 
-from .config import SQLITE_DB_PATH, V2_DIR, TABLE_CREATION_SQL
+try:
+    # When used as part of the `src` package (e.g. `python -m src.simple_qa`)
+    from .config import SQLITE_DB_PATH, V2_DIR, TABLE_CREATION_SQL
+except ImportError:
+    # When modules are imported directly from the `src` folder (e.g. via Streamlit)
+    from config import SQLITE_DB_PATH, V2_DIR, TABLE_CREATION_SQL
 
 
 def get_connection() -> sqlite3.Connection:

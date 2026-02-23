@@ -14,7 +14,12 @@ The model answers based on its understanding of the database schema
 
 from __future__ import annotations
 
-from .nl2sql import answer_question_nl2sql
+try:
+    # When run as part of the `src` package (e.g. `python -m src.simple_qa`)
+    from nl2sql import answer_question_nl2sql
+except ImportError:
+    # When run as a plain script/module from the `src` directory
+    from nl2sql import answer_question_nl2sql
 
 
 def answer_question(question: str) -> str:

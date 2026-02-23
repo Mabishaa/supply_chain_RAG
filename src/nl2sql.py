@@ -19,7 +19,12 @@ from typing import List, Optional
 from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .db import get_schema_description, initialize_database, run_query
+try:
+    # When used as part of the `src` package (e.g. `python -m src.simple_qa`)
+    from .db import get_schema_description, initialize_database, run_query
+except ImportError:
+    # When modules are imported directly from the `src` folder (e.g. via Streamlit)
+    from db import get_schema_description, initialize_database, run_query
 
 
 def _extract_sql_from_response(text: str) -> Optional[str]:
